@@ -15,7 +15,7 @@ app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.ATHLETE_USER}:${process.env.ARHLETE_PASS}@cluster0.bbiovs6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -31,6 +31,26 @@ async function run() {
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
 
+    const equipmentCollection = client.db("equipment_db").collection("equipments");
+    
+
+    app.post('/equipment', async (req, res)=>{
+        const equipmentData = req.body
+
+        const equipment = {
+            photo:equipmentData.photo,
+            name: equipmentData.name,
+            category: equipmentData.category,description: equipmentData.description,price: equipmentData.price,
+            rating: equipmentData.rating,customization: equipmentData.customization,
+            time: equipmentData.time,
+            stock: equipmentData.stock,
+            email: equipmentData.email,
+            displayName: equipmentData.displayName
+        }
+        const result = await equipmentCollection.insertOne(equipment);
+        res.send(result)
+        console.log(equipmentData);
+    })
 
 
 
