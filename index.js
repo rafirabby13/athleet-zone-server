@@ -66,6 +66,13 @@ async function run() {
         const cursor = await equipmentCollection.findOne(query);
         res.send(cursor)
     })
+    app.get('/equipment/:email', async (req, res)=>{
+        const email = req.body.email
+        const query = {email: email };
+       
+        const cursor = await equipmentCollection.findOne(query);
+        res.send(cursor)
+    })
 
 
 
