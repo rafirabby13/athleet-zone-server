@@ -52,6 +52,13 @@ async function run() {
         console.log(equipmentData);
     })
 
+    app.get('/equipment', async (req, res)=>{
+        const query = {};
+       
+        const cursor = await equipmentCollection.find(query).toArray();
+        res.send(cursor)
+    })
+
 
 
 
