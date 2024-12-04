@@ -85,6 +85,32 @@ async function run() {
         const cursor = await equipmentCollection.deleteOne(query);
         res.send(cursor)
     })
+    app.put('/equip/:id', async (req, res)=>{
+        const updatedData = req.body
+        
+        
+        const options = { upsert: true };
+        const id = req.params.id
+        // console.log(id);
+        const query = {_id: new ObjectId(id)};
+        const updateDoc = {
+          $set: {
+            photo:updatedData.photo,
+            name: updatedData.name,
+            category: updatedData.category,description: updatedData.description,price: updatedData.price,
+            rating: updatedData.rating,customization: updatedData.customization,
+            time: updatedData.time,
+            stock: updatedData.stock,
+            email: updatedData.email,
+            displayName: updatedData.displayName
+        },
+        };
+        const result = await equipmentCollection.updateOne(query, updateDoc, options);
+        
+       
+        
+        res.send(result)
+    })
 
 
 
