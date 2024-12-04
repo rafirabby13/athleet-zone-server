@@ -61,16 +61,19 @@ async function run() {
 
     app.get('/equipment/:id', async (req, res)=>{
         const id = req.params.id
+       
         const query = {_id: new ObjectId(id)};
        
         const cursor = await equipmentCollection.findOne(query);
         res.send(cursor)
     })
-    app.get('/equipment/:email', async (req, res)=>{
-        const email = req.body.email
-        const query = {email: email };
+    app.get('/equip/:email', async (req, res)=>{
+        const ema = req.params.email
+        console.log(ema);
+        const query = {email: ema };
        
         const cursor = await equipmentCollection.findOne(query);
+        console.log(cursor);
         res.send(cursor)
     })
 
