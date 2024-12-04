@@ -72,8 +72,17 @@ async function run() {
         console.log(ema);
         const query = {email: ema };
        
-        const cursor = await equipmentCollection.findOne(query);
+        const cursor = await equipmentCollection.find(query).toArray();
         console.log(cursor);
+        res.send(cursor)
+    })
+
+    app.delete('/equipment/:id', async (req, res)=>{
+        const id = req.params.id
+        console.log(id);
+        const query = {_id: new ObjectId(id)};
+       
+        const cursor = await equipmentCollection.deleteOne(query);
         res.send(cursor)
     })
 
