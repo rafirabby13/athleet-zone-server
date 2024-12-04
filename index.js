@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 // middleware
 app.use(cors())
@@ -56,6 +56,14 @@ async function run() {
         const query = {};
        
         const cursor = await equipmentCollection.find(query).toArray();
+        res.send(cursor)
+    })
+
+    app.get('/equipment/:id', async (req, res)=>{
+        const id = req.params.id
+        const query = {_id: new ObjectId(id)};
+       
+        const cursor = await equipmentCollection.findOne(query);
         res.send(cursor)
     })
 
