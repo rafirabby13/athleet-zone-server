@@ -113,6 +113,13 @@ async function run() {
     })
 
 
+    app.get('/products', async (req, res)=>{
+        const query = {}
+        const result = await equipmentCollection.find().limit(6).toArray()
+        res.send(result)
+    })
+
+
 
 
 
